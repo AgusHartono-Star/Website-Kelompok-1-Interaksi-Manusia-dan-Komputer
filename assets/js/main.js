@@ -23,7 +23,7 @@
   window.addEventListener('load', toggleScrolled);
 
   /**
-   * Mobile nav toggle
+   * Mobile nav toggl
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 

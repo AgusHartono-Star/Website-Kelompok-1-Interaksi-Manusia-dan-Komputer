@@ -16,7 +16,11 @@ $bootstrap-icons-font-src: url("#{$bootstrap-icons-font-file}.woff2?#{$bootstrap
   font-family: $bootstrap-icons-font;
   src: $bootstrap-icons-font-src;
 }
-
+/*!
+ * Bootstrap Icons v1.13.1 (https://icons.getbootstrap.com/)
+ * Copyright 2019-2024 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/icons/blob/main/LICENSE)
+ */
 .bi::before,
 [class^="bi-"]::before,
 [class*=" bi-"]::before {

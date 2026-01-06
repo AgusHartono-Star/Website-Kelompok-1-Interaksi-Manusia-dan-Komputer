@@ -64,7 +64,7 @@ function ready(selector, fn) {
     removedNodes: true
   });
 }
-
+-
 var observer = { isSupported: isSupported, ready: ready };
 
 var classCallCheck = function (instance, Constructor) {
