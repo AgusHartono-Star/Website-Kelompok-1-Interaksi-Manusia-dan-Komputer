@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Konselor - HealthySoul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    body { background:#f9fafb }
+
+    .counselor-card {
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+      padding:20px;
+    }
+  </style>
+  <script>
+function pesan(id) {
+
+  const konselorMap = {
+    1: { nama: "Dr. Anisa Putri, M.Psi", harga: 250000 },
+    2: { nama: "Budi Santoso, M.Psi", harga: 300000 },
+    3: { nama: "Dr. Maya Dewi, Sp.KJ", harga: 400000 }
+  };
+
+  const booking = {
+    id: Date.now(),
+    konselor: konselorMap[id].nama,
+    harga: konselorMap[id].harga,
+    tanggal: new Date().toLocaleString("id-ID"),
+    status: "menunggu_pembayaran"
+  };
+
+  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  bookings.push(booking);
+
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+  localStorage.setItem("current_booking", JSON.stringify(booking));
+
+  window.location.href = "checkout.html";
+}
+</script>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="header" class="header sticky-top">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo">
+      <h1 class="sitename">HealthySoul</h1>
+    </a>
+
+    <nav class="navmenu">
+      <ul class="d-flex align-items-center gap-3 mb-0">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="konselor.html" class="active">Konselor</a></li>
+        <li><a href="kontak.html">Kontak</a></li>
+        <li id="navAuth"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="py-5">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Bicara dengan Konselor Profesional</h2>
+      <p class="text-muted">
+        Semua konselor kami terverifikasi dan siap membantu dengan empati.
+      </p>
+    </div>
+
+    <div class="row g-4" id="konselorList"></div>
+
+  </div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer dark-background">
+  <div class="container text-center py-4">
+    <p>© 2025 <strong>HealthySoul</strong>. All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* ===============================
+   AUTH (SESUAI login.html)
+=============================== */
+const isLogin = localStorage.getItem("isLogin") === "true";
+const role    = localStorage.getItem("role");
+
+/* ===============================
+   NAV AUTH
+=============================== */
+const navAuth = document.getElementById("navAuth");
+
+if (isLogin && role === "user") {
+  navAuth.innerHTML = `
+    <a href="dashboard.html" class="btn btn-success btn-sm ms-3">
+      Dashboard
+    </a>
+  `;
+} else if (isLogin && role === "konselor") {
+  navAuth.innerHTML = `
+    <a href="konselor_booking.html" class="btn btn-outline-primary btn-sm ms-3">
+      Pemesanan Jasa
+    </a>
+  `;
+} else {
+  navAuth.innerHTML = `
+    <a href="login.html" class="btn btn-outline-success btn-sm ms-3">
+      Masuk
+    </a>
+  `;
+}
+
+/* ===============================
+   DATA KONSELOR
+=============================== */
+const konselor = [
+  {
+    id:1,
+    nama:"Dr. Anisa Putri, M.Psi",
+    spesialisasi:"Kecemasan & Depresi",
+    deskripsi:"Berpengalaman membantu klien dengan gangguan kecemasan.",
+    harga:250000,
+    status:"tersedia"
+  },
+  {
+    id:2,
+    nama:"Budi Santoso, M.Psi",
+    spesialisasi:"Trauma & PTSD",
+    deskripsi:"Spesialis penanganan trauma psikologis.",
+    harga:300000,
+    status:"tersedia"
+  },
+  {
+    id:3,
+    nama:"Dr. Maya Dewi, Sp.KJ",
+    spesialisasi:"Psikiatri Umum",
+    deskripsi:"Dokter spesialis kejiwaan.",
+    harga:400000,
+    status:"penuh"
+  }
+];
+
+/* ===============================
+   RENDER KONSELOR
+=============================== */
+const list = document.getElementById("konselorList");
+list.innerHTML = "";
+
+konselor.forEach(k => {
+  list.innerHTML += `
+    <div class="col-lg-4 col-md-6 d-flex">
+      <div class="counselor-card w-100">
+        <h4>${k.nama}</h4>
+        <span class="text-success fw-semibold">${k.spesialisasi}</span>
+        <p class="text-muted small mt-2">${k.deskripsi}</p>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span class="fw-semibold">
+            Rp ${k.harga.toLocaleString("id-ID")} / sesi
+          </span>
+
+          ${
+            k.status !== "tersedia"
+              ? `<span class="badge bg-secondary">Penuh</span>`
+              : !isLogin
+                ? `<a href="login.html" class="btn btn-outline-success btn-sm">Login</a>`
+                : role === "user"
+                  ? `<button class="btn btn-success btn-sm" onclick="pesan(${k.id})">Pesan</button>`
+                  : `<span class="badge bg-info">Akun Konselor</span>`
+          }
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+/* ===============================
+   PESAN (SATU KALI SAJA)
+=============================== */
+function pesan(id) {
+  const data = {
+    1: { nama: "Dr. Anisa Putri, M.Psi", harga: 250000 },
+    2: { nama: "Budi Santoso, M.Psi", harga: 300000 },
+    3: { nama: "Dr. Maya Dewi, Sp.KJ", harga: 400000 }
+  };
+
+  const booking = {
+    id: Date.now(),
+    konselor_id: id,
+    konselor_nama: data[id].nama,
+    harga: data[id].harga,
+    tanggal: new Date().toLocaleString("id-ID"),
+    status: "menunggu_pembayaran"
+  };
+
+  localStorage.setItem("current_booking", JSON.stringify(booking));
+  window.location.href = "checkout.html";
+}
+</script>
+
+</body>
+</html>

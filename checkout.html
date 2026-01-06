@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Checkout Konseling | HealthySoul</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
+
+<style>
+body {
+  background: #f6f9f8;
+}
+
+/* CARD */
+.checkout-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 30px;
+}
+
+/* TITLE */
+.checkout-title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* INFO ROW */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.info-row span {
+  color: #6c757d;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #198754;
+}
+
+/* BUTTON */
+.btn-pay {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* SECURITY NOTE */
+.secure-note {
+  font-size: 13px;
+  color: #6c757d;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header sticky-top bg-white shadow-sm">
+  <div class="container py-3 d-flex align-items-center">
+
+    <!-- KIRI: LOGO -->
+    <a href="index.html"
+       class="text-decoration-none fw-bold fs-4 text-success">
+      HealthySoul
+    </a>
+
+    <!-- KANAN: BACK -->
+    <a href="index.html"
+       class="text-decoration-none fw-semibold ms-auto">
+       Beranda
+    </a>
+
+  </div>
+  
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-md-6">
+
+        <div class="checkout-card">
+
+          <h4 class="checkout-title text-center">
+             Checkout Konseling
+          </h4>
+
+          <hr>
+
+          <div class="info-row">
+            <span>Konselor</span>
+            <strong id="namaKonselor">-</strong>
+          </div>
+
+          <div class="info-row">
+            <span>Tanggal</span>
+            <strong id="tanggal">-</strong>
+          </div>
+
+          <div class="info-row">
+            <span>Status</span>
+            <strong class="text-warning">Menunggu Pembayaran</strong>
+          </div>
+
+          <hr>
+
+          <div class="info-row total">
+            <span>Total Pembayaran</span>
+            <strong id="harga">-</strong>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button class="btn btn-success btn-pay" onclick="bayar()">
+              <i class="bi bi-credit-card"></i> Bayar Sekarang
+            </button>
+          </div>
+
+          <div class="text-center mt-3 secure-note">
+            <i class="bi bi-shield-lock"></i>
+            Pembayaran aman & terenkripsi
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+const booking = JSON.parse(localStorage.getItem("current_booking"));
+
+if (!booking) {
+  alert("Tidak ada data booking");
+  window.location.href = "konselor.html";
+}
+
+document.getElementById("namaKonselor").innerText = booking.konselor_nama;
+document.getElementById("tanggal").innerText = booking.tanggal;
+document.getElementById("harga").innerText =
+  "Rp " + booking.harga.toLocaleString("id-ID");
+
+/* BAYAR */
+function bayar() {
+  booking.status = "dibayar";
+  localStorage.setItem("current_booking", JSON.stringify(booking));
+
+  window.location.href = "struk.html";
+}
+</script>
+
+</body>
+</html>

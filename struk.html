@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Struk Pembayaran | HealthySoul</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
+
+<style>
+body {
+  background: #f6f9f8;
+}
+
+.struk-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 30px;
+}
+
+.row-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #198754;
+}
+</style>
+</head>
+
+<body>
+
+<main class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-md-6">
+
+        <div class="struk-card" id="strukBox">
+
+          <h4 class="text-center mb-4">🧾 Bukti Pembayaran</h4>
+
+          <div class="row-info">
+            <span>Kode Booking</span>
+            <strong id="kode">-</strong>
+          </div>
+
+          <div class="row-info">
+            <span>Konselor</span>
+            <strong id="nama">-</strong>
+          </div>
+
+          <div class="row-info">
+            <span>Tanggal</span>
+            <strong id="tanggal">-</strong>
+          </div>
+
+          <div class="row-info">
+            <span>Status</span>
+            <strong class="text-success">Dibayar</strong>
+          </div>
+
+          <hr>
+
+          <div class="row-info total">
+            <span>Total</span>
+            <strong id="harga">-</strong>
+          </div>
+
+          <div class="d-grid mt-4">
+ <button onclick="cetakStruk()" class="btn btn-primary">
+  Cetak Struk
+</button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+const booking = JSON.parse(localStorage.getItem("current_booking"));
+
+if (!booking) {
+  document.getElementById("strukBox").innerHTML = `
+    <div class="alert alert-warning text-center">
+      Data tidak ditemukan.<br>
+      Silakan lakukan pemesanan terlebih dahulu.
+    </div>
+    <div class="text-center">
+      <a href="konselor.html" class="btn btn-success mt-3">
+        Kembali ke Konselor
+      </a>
+    </div>
+  `;
+} else {
+  document.getElementById("kode").innerText = booking.id;
+  document.getElementById("nama").innerText = booking.konselor_nama;
+  document.getElementById("tanggal").innerText = booking.tanggal;
+  document.getElementById("harga").innerText =
+    "Rp " + booking.harga.toLocaleString("id-ID");
+}
+</script>
+<script>
+function cetakStruk() {
+  window.print();
+}
+
+// DIPANGGIL SETELAH PRINT DITUTUP
+window.onafterprint = function () {
+
+  const booking = JSON.parse(localStorage.getItem("current_booking"));
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  if (booking) {
+    // ubah status jadi dibayar
+    booking.status = "dibayar";
+
+    // masukkan ke riwayat
+    bookings.push(booking);
+
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    localStorage.removeItem("current_booking");
+  }
+
+  // redirect SETELAH cetak SELESAI
+  window.location.href = "dashboard.html";
+};
+</script>
+</body>
+</html>

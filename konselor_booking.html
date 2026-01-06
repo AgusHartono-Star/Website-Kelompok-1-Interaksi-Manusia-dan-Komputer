@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemesanan Konselor</title>
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { background:#f6f9f8; padding:30px }
+</style>
+</head>
+<body>
+
+<h3 class="mb-4">📋 Riwayat Pemesanan Konselor</h3>
+
+<table class="table table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th>Kode</th>
+      <th>Nama User</th>
+      <th>Tanggal</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody id="bookingTable"></tbody>
+</table>
+
+<script>
+/* ===============================
+   SIMULASI SESSION
+=============================== */
+const konselor_id = localStorage.getItem('konselor_id') || 1;
+
+/* ===============================
+   SIMULASI DATABASE
+=============================== */
+let bookings = [
+  {
+    id: 1,
+    kode_booking: 'BK-20240101-AAA',
+    tanggal: '2024-01-01',
+    status: 'menunggu',
+    konselor_id: 1,
+    nama_user: 'Andi'
+  },
+  {
+    id: 2,
+    kode_booking: 'BK-20240102-BBB',
+    tanggal: '2024-01-02',
+    status: 'dibayar',
+    konselor_id: 1,
+    nama_user: 'Budi'
+  },
+  {
+    id: 3,
+    kode_booking: 'BK-20240103-CCC',
+    tanggal: '2024-01-03',
+    status: 'selesai',
+    konselor_id: 1,
+    nama_user: 'Sinta'
+  }
+];
+
+/* ===============================
+   RENDER TABLE
+=============================== */
+function renderTable() {
+  const tbody = document.getElementById('bookingTable');
+  tbody.innerHTML = '';
+
+  bookings
+    .filter(b => b.konselor_id == konselor_id)
+    .forEach(row => {
+
+      let aksi = '';
+
+      if (row.status === 'menunggu') {
+        aksi = `
+          <button class="btn btn-success btn-sm" onclick="updateStatus(${row.id}, 'dibayar')">Terima</button>
+          <button class="btn btn-danger btn-sm" onclick="updateStatus(${row.id}, 'batal')">Tolak</button>
+        `;
+      } else if (row.status === 'dibayar') {
+        aksi = `
+          <button class="btn btn-primary btn-sm" onclick="updateStatus(${row.id}, 'selesai')">Selesai</button>
+        `;
+      } else {
+        aksi = `<span class="badge bg-secondary">${row.status}</span>`;
+      }
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${row.kode_booking}</td>
+          <td>${row.nama_user}</td>
+          <td>${row.tanggal}</td>
+          <td>${row.status}</td>
+          <td>${aksi}</td>
+        </tr>
+      `;
+    });
+}
+
+/* ===============================
+   UPDATE STATUS (ganti update_booking.php)
+=============================== */
+function updateStatus(id, status) {
+  bookings = bookings.map(b => {
+    if (b.id === id) b.status = status;
+    return b;
+  });
+  renderTable();
+}
+
+/* INIT */
+renderTable();
+</script>
+<script>
+function pesan(id) {
+  const user = localStorage.getItem("user_id");
+  if (!user) {
+    alert("Silakan login terlebih dahulu");
+    location.href = "login.html";
+    return;
+  }
+
+  const konselorDipilih = konselor.find(k => k.id === id);
+
+  const bookingBaru = {
+    booking_id: Date.now(),
+    user_id: user,
+    konselor_id: konselorDipilih.id,
+    nama_konselor: konselorDipilih.nama,
+    harga: konselorDipilih.harga,
+    tanggal: new Date().toLocaleString("id-ID"),
+    status: "menunggu"
+  };
+
+  const dataBooking = JSON.parse(localStorage.getItem("booking")) || [];
+  dataBooking.push(bookingBaru);
+  localStorage.setItem("booking", JSON.stringify(dataBooking));
+
+  // redirect ke riwayat
+  location.href = "riwayat.html";
+}
+</script>
+</body>
+</html>

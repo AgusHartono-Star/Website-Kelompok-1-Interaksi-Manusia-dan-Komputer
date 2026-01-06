@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthySoul</title>
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const startBtn = document.getElementById("breathingStart");
+  const circle = document.getElementById("breathingCircle");
+  const text = document.getElementById("breathingText");
+  const status = document.getElementById("breathingStatus");
+
+  if (!startBtn) return; // pengaman kalau section tidak ada
+
+  startBtn.addEventListener("click", function () {
+    startBtn.disabled = true;
+
+    // TARIK
+    status.innerText = "Tarik napas (4 detik)";
+    text.innerText = "Tarik";
+    circle.classList.add("active");
+    circle.classList.remove("shrink");
+
+    setTimeout(() => {
+      // TAHAN
+      status.innerText = "Tahan napas (4 detik)";
+      text.innerText = "Tahan";
+
+      setTimeout(() => {
+        // HEMBUS
+        status.innerText = "Hembuskan napas (6 detik)";
+        text.innerText = "Hembus";
+        circle.classList.remove("active");
+        circle.classList.add("shrink");
+
+        setTimeout(() => {
+          status.innerText = "Selesai 🌿";
+          text.innerText = "Siap";
+          startBtn.disabled = false;
+        }, 6000);
+
+      }, 4000);
+
+    }, 4000);
+  });
+
+});
+</script>
+</head>
+
+<body>
+
+<header id="header" class="header sticky-top">
+
+  <div class="topbar d-flex align-items-center dark-background">
+    <div class="container">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope"><a href="mailto:healthysoul@id">healthysoul@id</a></i>
+        <i class="bi bi-phone ms-4"><span>+62 878-4095-4402</span></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="branding d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- LOGO -->
+        <div class="col-lg-3">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <h1 class="sitename">HealthySoul</h1>
+          </a>
+        </div>
+
+        <!-- NAV -->
+        <div class="col-lg-6">
+          <nav id="navmenu" class="navmenu d-flex justify-content-center">
+            <ul class="d-flex gap-4 mb-0">
+              <li><a href="#help-options" class="active">Beranda</a></li>
+              <li><a href="konselor.html">Konselor</a></li>
+              <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- MENU DINAMIS -->
+        <div class="col-lg-3 d-flex justify-content-end">
+          <div id="menu-area" class="d-flex gap-2"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HELP OPTIONS ================= -->
+<section id="help-options" class="help-options section">
+  <div class="container-fluid">
+
+    <div class="section-title text-center mb-5">
+      <h2>Tidak apa-apa untuk tidak baik-baik saja</h2>
+      <p>Kami di sini untuk menemanimu.</p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="feature-item mood-card">
+          <div class="icon">😊</div>
+          <h4>Mood Check-in</h4>
+          <p>Pantau perasaanmu setiap hari</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="feature-item counselor-card">
+          <div class="icon">💬</div>
+          <h4>Bicara dengan Konselor</h4>
+          <p>Temukan bantuan profesional</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="feature-item selfhelp-card">
+          <div class="icon">📘</div>
+          <h4>Self-Help Resources</h4>
+          <p>Artikel dan latihan mandiri</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= BREATHING ================= -->
+<section id="breathing" class="breathing-section">
+  <div class="container">
+    <div class="breathing-layout">
+
+      <div class="breathing-info">
+        <h2>Latihan Pernapasan untuk Menenangkan Diri</h2>
+        <p>Coba latihan ini selama beberapa menit.</p>
+
+        <button id="breathingStart" class="btn btn-success">
+          Mulai Bernapas
+        </button>
+      </div>
+
+      <div class="breathing-visual">
+        <div class="breathing-circle" id="breathingCircle">
+          <div class="breathing-inner" id="breathingText">Siap</div>
+        </div>
+        <div class="breathing-status" id="breathingStatus"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="footer dark-background">
+  <div class="container footer-top">
+    <div class="row gy-4">
+
+      <div class="col-lg-4 footer-about">
+        <h4>HealthySoul</h4>
+        <p>Platform kesehatan mental Kendari.</p>
+      </div>
+
+      <div class="col-lg-4 footer-links">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="konselor.html">Konseling Online</a></li>
+          <li><a href="#breathing">Breathing</a></li>
+          <li><a href="kontak.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-4 footer-links">
+        <h4>Kontak</h4>
+        <p>Email: healthysoul@id<br>Hotline: +62 878-4095-4402</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container text-center mt-4">
+    <p>© <span id="year"></span> <strong>HealthySoul</strong></p>
+  </div>
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* YEAR */
+document.getElementById("year").innerText = new Date().getFullYear();
+
+/* DEMO AUTH */
+const role = localStorage.getItem("role");
+const menu = document.getElementById("menu-area");
+
+function logout() {
+  localStorage.clear();
+  location.reload();
+}
+
+if (role === "konselor") {
+  menu.innerHTML = `
+    <a href="konselor_booking.html" class="btn btn-outline-primary">Pemesanan Jasa</a>
+    <button onclick="logout()" class="btn btn-danger">Logout</button>
+  `;
+} else if (role === "user") {
+  menu.innerHTML = `
+    <a href="konselor.html" class="btn btn-success">Pesan Konselor</a>
+    <button onclick="logout()" class="btn btn-outline-danger">Logout</button>
+  `;
+} else {
+  menu.innerHTML = `<a href="login.html" class="btn btn-success">Masuk</a>`;
+}
+
+/* BREATHING */
+document.getElementById("breathingStart")?.addEventListener("click", () => {
+  const text = document.getElementById("breathingText");
+  text.innerText = "Tarik...";
+});
+</script>
+
+</body>
+</html>

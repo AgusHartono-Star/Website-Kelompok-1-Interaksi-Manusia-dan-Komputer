@@ -1,0 +1,17 @@
+<script>
+function buatBooking(konselor) {
+  const booking = {
+    id: Date.now(),
+    konselor: konselor.nama,
+    harga: konselor.harga,
+    tanggal: new Date().toLocaleString(),
+    status: "menunggu"
+  };
+
+  const data = JSON.parse(localStorage.getItem("booking")) || [];
+  data.push(booking);
+  localStorage.setItem("booking", JSON.stringify(data));
+
+  location.href = "riwayat.html";
+}
+</script>

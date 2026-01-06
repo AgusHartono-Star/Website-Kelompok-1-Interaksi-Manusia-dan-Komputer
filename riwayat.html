@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Riwayat Pemesanan</title>
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="p-4">
+
+<h3>Riwayat Pemesanan</h3>
+
+<table class="table table-bordered mt-3">
+  <thead>
+    <tr>
+      <th>Konselor</th>
+      <th>Tanggal</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody id="riwayat"></tbody>
+</table>
+
+<script>
+const data = JSON.parse(localStorage.getItem("booking")) || [];
+const tbody = document.getElementById("riwayat");
+
+data.forEach((b, i) => {
+  tbody.innerHTML += `
+    <tr>
+      <td>${b.nama_konselor}</td>
+      <td>${b.tanggal}</td>
+      <td>${b.status}</td>
+      <td>
+        ${
+          b.status === "menunggu"
+            ? `<button class="btn btn-success btn-sm" onclick="bayar(${i})">Bayar</button>`
+            : `<a href="struk.html?id=${b.booking_id}" class="btn btn-primary btn-sm">Cetak</a>`
+        }
+      </td>
+    </tr>
+  `;
+});
+
+function bayar(index) {
+  data[index].status = "dibayar";
+  localStorage.setItem("booking", JSON.stringify(data));
+  location.reload();
+}
+</script>
+
+</body>
+</html>

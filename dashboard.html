@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard | HealthySoul</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
+<!-- ================= HEADER ================= -->
+<header id="header" class="header sticky-top">
+
+  <!-- TOPBAR (SAMA SEPERTI INDEX, TANPA EMAIL & TELP) -->
+  <div class="topbar d-flex align-items-center dark-background">
+        <div class="container">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope"><a href="mailto:healthysoul@id">healthysoul@id</a></i>
+        <i class="bi bi-phone ms-4"><span>+62 878-4095-4402</span></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRANDING -->
+  <div class="branding d-flex align-items-center bg-white shadow-sm">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- LOGO -->
+        <div class="col-lg-3">
+          <a href="index.html" class="logo d-flex align-items-center text-decoration-none">
+            <h1 class="sitename m-0">HealthySoul</h1>
+          </a>
+        </div>
+
+        <!-- NAV -->
+        <div class="col-lg-6">
+          <nav class="navmenu d-flex justify-content-center">
+            <ul class="d-flex gap-4 mb-0 list-unstyled">
+              <li><a href="index.html">Beranda</a></li>
+              <li><a href="konselor.html">Konselor</a></li>
+              <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- MENU KANAN -->
+        <div class="col-lg-3 d-flex justify-content-end gap-2">
+       
+          <button onclick="logout()" class="btn btn-outline-danger btn-sm">
+            Logout
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</header>
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+  <!-- HEADER -->
+  
+  <!-- RIWAYAT -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <h5 class="mb-3">Riwayat Booking</h5>
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Konselor</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Harga</th>
+            </tr>
+          </thead>
+          <tbody id="bookingTable">
+            <!-- diisi JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="konselor.html" class="btn btn-success">
+      + Booking Konselor Lagi
+    </a>
+  </div>
+
+</div>
+
+<script>
+const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+const tbody = document.getElementById("bookingTable");
+
+if (bookings.length === 0) {
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="4" class="text-center text-muted">
+        Belum ada riwayat booking
+      </td>
+    </tr>
+  `;
+} else {
+  bookings.forEach(b => {
+    let badge = "secondary";
+
+    if (b.status === "dibayar") badge = "success";
+    if (b.status === "menunggu_pembayaran") badge = "warning";
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${b.konselor_nama || b.konselor}</td>
+        <td>${b.tanggal}</td>
+        <td>
+          <span class="badge bg-${badge}">
+            ${b.status.replace("_", " ")}
+          </span>
+        </td>
+        <td>Rp ${b.harga.toLocaleString("id-ID")}</td>
+      </tr>
+    `;
+  });
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

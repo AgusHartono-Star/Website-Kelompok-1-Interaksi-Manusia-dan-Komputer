@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Login | HealthySoul</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
+
+<style>
+/* ================== HARD FIX CLICK ================== */
+* {
+  pointer-events: auto !important;
+}
+
+body {
+  background: #f6f9f8;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+a, button {
+  cursor: pointer !important;
+}
+
+/* ================== LOGIN CARD ================== */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 999;
+}
+
+.back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  text-decoration: none;
+  color: #198754;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-home">← Kembali ke Beranda</a>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <div class="text-center mb-4">
+      <h2>HealthySoul</h2>
+      <p class="text-muted">Masuk ke akun kamu</p>
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input id="email" type="email" class="form-control" placeholder="ketik user@gmail.com">
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <input id="password" type="password" class="form-control" placeholder="••••••">
+    </div>
+
+    <button onclick="loginUser()" class="btn btn-success w-100">
+      Masuk
+    </button>
+
+    <div class="text-center mt-3">
+      <small class="text-muted">
+        Demo login — tanpa server
+      </small>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function loginUser() {
+  const email = document.getElementById("email").value;
+
+  if (!email) {
+    alert("Isi email dulu");
+    return;
+  }
+
+  // ===== SIMULASI ROLE =====
+  localStorage.setItem("isLogin", "true");
+
+  if (email.includes("konselor")) {
+    localStorage.setItem("role", "konselor");
+  } else {
+    localStorage.setItem("role", "user");
+  }
+
+  localStorage.setItem("user_name", email);
+
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
