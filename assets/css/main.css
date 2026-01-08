@@ -6027,48 +6027,53 @@ a {
   color: #198754;
   font-weight: 600;
 }
-/* ===== RESPONSIVE HEADER (HP) ===== */
-@media (max-width: 768px) {
+/* ============================= */
+/* MOBILE HEADER FIX */
+/* ============================= */
+@media (max-width: 991px) {
 
-  /* Topbar */
+  /* TOPBAR */
   .topbar .contact-info {
     flex-direction: column;
+    align-items: center;
     gap: 4px;
+    font-size: 13px;
     text-align: center;
-    font-size: 14px;
   }
 
   .topbar .contact-info i {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 6px;
   }
 
-  /* Branding area */
+  /* BRANDING AREA */
   .branding .row {
     flex-direction: column;
+    gap: 10px;
+  }
+
+  /* LOGO */
+  .branding .sitename {
+    font-size: 22px;
     text-align: center;
-    gap: 12px;
   }
 
-  /* Logo */
-  .branding .logo {
-    justify-content: center;
-  }
-
-  /* Nav menu */
+  /* NAV MENU */
   #navmenu ul {
     flex-direction: column;
     gap: 10px;
-    padding-left: 0;
+    padding: 10px 0;
   }
 
   #navmenu {
     justify-content: center;
   }
 
-  /* Menu dinamis (login / button dll) */
+  /* MENU AREA (KANAN) */
   #menu-area {
     justify-content: center;
     width: 100%;
   }
+
 }
