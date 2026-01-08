@@ -59,7 +59,7 @@ function pesan(id) {
     <nav class="navmenu">
      <ul class="d-flex gap-4 mb-0 list-unstyled align-items-center">
         <li><a href="index.html" class="text-white">Beranda</a></li>
-        <li><a href="konselor.html" class="text-white">Konselor</a></li>
+        <li><a href="konselor.html" class="text-white" class="active">Konselor</a></li>
         <li><a href="kontak.html" class="text-white">Kontak</a></li>
         <li id="navAuth"></li>
       </ul>
@@ -110,7 +110,7 @@ const navAuth = document.getElementById("navAuth");
 
 if (isLogin && role === "user") {
   navAuth.innerHTML = `
-    <a href="dashboard.html" class="btn btn-success btn-sm ms-3">
+    <a href="dashboard.html" class="text-white">
       Dashboard
     </a>
   `;
