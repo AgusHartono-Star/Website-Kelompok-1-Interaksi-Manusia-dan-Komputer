@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Pernapasan</title>
+
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  background: #f9fafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.breathing-wrapper {
+  text-align: center;
+}
+
+.circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto;
+  transition: transform 4s linear;
+}
+
+.circle.active {
+  transform: scale(1.4);
+}
+
+.circle.shrink {
+  transform: scale(0.8);
+}
+
+.inner {
+  width: 90px;
+  height: 90px;
+  background: #10b981;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+button {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: #10b981;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="breathing-wrapper">
+  <h2>Latihan Pernapasan</h2>
+  <p>Ikuti ritme untuk menenangkan diri</p>
+
+  <div class="circle" id="circle">
+    <div class="inner" id="innerText">Siap</div>
+  </div>
+
+  <button id="startBtn">Mulai</button>
+
+  <div class="status" id="statusText"></div>
+</div>
+
+<script>
+const startBtn = document.getElementById("startBtn");
+const circle = document.getElementById("circle");
+const innerText = document.getElementById("innerText");
+const statusText = document.getElementById("statusText");
+
+startBtn.addEventListener("click", startBreathing);
+
+function startBreathing() {
+  startBtn.disabled = true;
+
+  // Tarik napas
+  statusText.innerText = "Tarik napas (4 detik)";
+  innerText.innerText = "Tarik";
+  circle.classList.add("active");
+  circle.classList.remove("shrink");
+
+  setTimeout(() => {
+    // Tahan
+    statusText.innerText = "Tahan napas (4 detik)";
+    innerText.innerText = "Tahan";
+
+    setTimeout(() => {
+      // Hembuskan
+      statusText.innerText = "Hembuskan napas (6 detik)";
+      innerText.innerText = "Hembus";
+      circle.classList.remove("active");
+      circle.classList.add("shrink");
+
+      setTimeout(() => {
+        statusText.innerText = "Selesai 🌿";
+        innerText.innerText = "Siap";
+        startBtn.disabled = false;
+      }, 6000);
+
+    }, 4000);
+
+  }, 4000);
+}
+</script>
+
+</body>
+</html>
