@@ -138,7 +138,8 @@ const konselor = [
     spesialisasi:"Kecemasan & Depresi",
     deskripsi:"Berpengalaman membantu klien dengan gangguan kecemasan.",
     harga:250000,
-    status:"tersedia"
+    status:"tersedia",
+    foto:"assets/img/person/person-f-6.webp"
   },
   {
     id:2,
@@ -146,7 +147,8 @@ const konselor = [
     spesialisasi:"Trauma & PTSD",
     deskripsi:"Spesialis penanganan trauma psikologis.",
     harga:300000,
-    status:"tersedia"
+    status:"tersedia",
+    foto:"assets/img/person/person-m-4.webp"
   },
   {
     id:3,
@@ -154,7 +156,8 @@ const konselor = [
     spesialisasi:"Psikiatri Umum",
     deskripsi:"Dokter spesialis kejiwaan.",
     harga:400000,
-    status:"penuh"
+    status:"penuh",
+    foto:"assets/img/person/person-f-12.webp"
   }
 ];
 
@@ -167,7 +170,15 @@ list.innerHTML = "";
 konselor.forEach(k => {
   list.innerHTML += `
     <div class="col-lg-4 col-md-6 d-flex">
-      <div class="counselor-card w-100">
+      <div class="counselor-card w-100 text-center">
+
+        <img 
+          src="${k.foto}" 
+          alt="${k.nama}" 
+          class="img-fluid rounded-circle mb-3"
+          style="width:120px;height:120px;object-fit:cover;"
+        >
+
         <h4>${k.nama}</h4>
         <span class="text-success fw-semibold">${k.spesialisasi}</span>
         <p class="text-muted small mt-2">${k.deskripsi}</p>
