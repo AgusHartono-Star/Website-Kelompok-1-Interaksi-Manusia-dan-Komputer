@@ -6027,3 +6027,48 @@ a {
   color: #198754;
   font-weight: 600;
 }
+/* ===== RESPONSIVE HEADER (HP) ===== */
+@media (max-width: 768px) {
+
+  /* Topbar */
+  .topbar .contact-info {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .topbar .contact-info i {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Branding area */
+  .branding .row {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  /* Logo */
+  .branding .logo {
+    justify-content: center;
+  }
+
+  /* Nav menu */
+  #navmenu ul {
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 0;
+  }
+
+  #navmenu {
+    justify-content: center;
+  }
+
+  /* Menu dinamis (login / button dll) */
+  #menu-area {
+    justify-content: center;
+    width: 100%;
+  }
+}
